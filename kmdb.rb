@@ -69,9 +69,9 @@
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
 # TODO!
-People.destroy_all
-Movies.destroy_all
-Roles.destroy_all
+Person.destroy_all
+Movie.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model
 # TODO!
@@ -80,6 +80,54 @@ Roles.destroy_all
 # Insert data into your database that reflects the sample data shown above
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+christopher_nolan = Person.new
+christopher_nolan.name = "Christopher Nolan"
+christopher_nolan.save
+
+christian_bale = Person.new
+christian_bale.name = "Christian Bale"
+christian_bale.save
+
+michael_caine = Person.new
+michael_caine.name = "Michael Caine"
+michael_caine.save
+
+liam_neeson = Person.new
+liam_neeson.name = "Liam Neeson"
+liam_neeson.save
+
+katie_holmes = Person.new
+katie_holmes.name = "Katie Holmes"
+katie_holmes.save
+
+gary_oldman = Person.new
+gary_oldman.name = "Gary Oldman"
+gary_oldman.save
+
+heath_ledger = Person.new
+heath_ledger.name = "Heath Ledger"
+heath_ledger.save
+
+aaron_eckhart = Person.new
+aaron_eckhart.name = "Aaron Eckhart"
+aaron_eckhart.save
+
+maggie_gyllenhaal = Person.new
+maggie_gyllenhaal.name = "Maggie Gyllenhaal"
+maggie_gyllenhaal.save
+
+tom_hardy = Person.new
+tom_hardy.name = "Tom Hardy"
+tom_hardy.save
+
+joseph_gordon_levitt = Person.new
+joseph_gordon_levitt.name = "Joseph Gordon-Levitt"
+joseph_gordon_levitt.save
+
+anne_hathaway = Person.new
+anne_hathaway.name = "Anne Hathaway"
+anne_hathaway.save
 
 movie1 = Movie.new
 movie1.title = "Batman Begins"
@@ -102,10 +150,95 @@ movie3.rated = "PG-13"
 movie3.person_id = christopher_nolan.id
 movie3.save
 
-christopher_nolan = Person.new
-christopher_nolan.name = "Christian Nolan"
-christopher_nolan.save
+bruce_wayne = Role.new
+bruce_wayne.movie_id = movie1.id
+bruce_wayne.person_id = christian_bale.id
+bruce_wayne.character_name = "Bruce Wayne"
+bruce_wayne.save
 
+alfred = Role.new
+alfred.movie_id = movie1.id
+alfred.person_id = michael_caine.id
+alfred.character_name = "Alfred"
+alfred.save
+
+ra_al_ghul = Role.new
+ra_al_ghul.movie_id = movie1.id
+ra_al_ghul.person_id = liam_neeson.id
+ra_al_ghul.character_name = "Ra's Al Ghul"
+ra_al_ghul.save
+
+rachel_dawes = Role.new
+rachel_dawes.movie_id = movie1.id
+rachel_dawes.person_id = katie_holmes.id
+rachel_dawes.character_name = "Rachel Dawes"
+rachel_dawes.save
+
+commissioner_gordon = Role.new
+commissioner_gordon.movie_id = movie1.id
+commissioner_gordon.person_id = gary_oldman.id
+commissioner_gordon.character_name = "Commissioner Gordon"
+commissioner_gordon.save
+
+bruce_wayne = Role.new
+bruce_wayne.movie_id = movie2.id
+bruce_wayne.person_id = christian_bale.id
+bruce_wayne.character_name = "Bruce Wayne"
+bruce_wayne.save
+
+joker = Role.new
+joker.movie_id = movie2.id
+joker.person_id = heath_ledger.id
+joker.character_name = "Joker"
+joker.save
+
+harvey_dent = Role.new
+harvey_dent.movie_id = movie2.id
+harvey_dent.person_id = aaron_eckhart.id
+harvey_dent.character_name = "Harvey Dent"
+harvey_dent.save
+
+alfred = Role.new
+alfred.movie_id = movie2.id
+alfred.person_id = michael_caine.id
+alfred.character_name = "Alfred"
+alfred.save
+
+rachel_dawes = Role.new
+rachel_dawes.movie_id = movie2.id
+rachel_dawes.person_id = maggie_gyllenhaal.id
+rachel_dawes.character_name = "Rachel Dawes"
+rachel_dawes.save
+
+bruce_wayne = Role.new
+bruce_wayne.movie_id = movie3.id
+bruce_wayne.person_id = christian_bale.id
+bruce_wayne.character_name = "Bruce Wayne"
+bruce_wayne.save
+
+commissioner_gordon = Role.new
+commissioner_gordon.movie_id = movie3.id
+commissioner_gordon.person_id = gary_oldman.id
+commissioner_gordon.character_name = "Commissioner Gordon"
+commissioner_gordon.save
+
+bane = Role.new
+bane.movie_id = movie3.id
+bane.person_id = tom_hardy.id
+bane.character_name = "Bane"
+bane.save
+
+john_blake = Role.new
+john_blake.movie_id = movie3.id
+john_blake.person_id = joseph_gordon_levitt.id
+john_blake.character_name = "John Blake"
+john_blake.save
+
+selina_kyle = Role.new
+selina_kyle.movie_id = movie3.id
+selina_kyle.person_id = anne_hathaway.id
+selina_kyle.character_name = "Selina Kyle"
+selina_kyle.save
 
 # Prints a header for the movies output
 puts "Movies"
@@ -130,3 +263,10 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie
 # TODO!
+
+roles = Role.all
+ for role in roles
+   movie = Movie.where({id: role.movie_id})[0] 
+   person = Person.where({id: role.person_id})[0]
+   puts "#{movie.title} - #{person.name} - #{role.character_name}"
+end
